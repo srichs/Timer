@@ -30,6 +30,10 @@ public:
   enum Type : byte { COUNTDOWN, COUNTUP };
   /*!
    * The default constructor for the Timer class.
+   * \param DIN The DIN pin of the display.
+   * \param CLK The CLK pin of the display.
+   * \param CS The CS pin of the display.
+   * \param alarm The alarm pin of the display.
    */
   Timer(uint8_t DIN, uint8_t CLK, uint8_t CS, uint8_t alarm)
       : _display(DIN, CLK, CS) {
