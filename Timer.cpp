@@ -59,9 +59,9 @@ void Timer::restart() {
  */
 void Timer::init() {
 #if (TIMER_DEBUG == 1)
-  Serial.begin(9600);
-  delay(1000);
-  Serial.println("Timer initialization");
+Serial.begin(9600);
+delay(1000);
+Serial.println("Timer initialization");
 #endif
   _done = false;
   _isPaused = false;
@@ -80,7 +80,7 @@ void Timer::init() {
 void Timer::setTime(uint16_t digits) {
   if (digits > 9999 || digits <= 0) {
 #if (TIMER_DEBUG == 1)
-  Serial.println("Given time outside of range.");
+Serial.println("Given time outside of range.");
 #endif
   } else {
     _digitFour = digits % 10;
@@ -91,12 +91,12 @@ void Timer::setTime(uint16_t digits) {
     digits = digits / 10;
     _digitOne = digits % 10;
 #if (TIMER_DEBUG == 1)
-  Serial.print("Time Set: ");
-  Serial.print(_digitOne);
-  Serial.print(_digitTwo);
-  Serial.print(":");
-  Serial.print(_digitThree);
-  Serial.println(_digitFour);
+Serial.print("Time Set: ");
+Serial.print(_digitOne);
+Serial.print(_digitTwo);
+Serial.print(":");
+Serial.print(_digitThree);
+Serial.println(_digitFour);
 #endif
   }
 }

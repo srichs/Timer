@@ -19,44 +19,44 @@
 class Timer {
 public:
   /*!
-    * An enumeration to define the fidelity of the timer, whether it
-    * counts by minutes or seconds.
-    */
+   * An enumeration to define the fidelity of the timer, whether it
+   * counts by minutes or seconds.
+   */
   enum Fidelity : byte { MINUTES, SECONDS };
   /*!
-    * An enumeration to define the type of timer, whether it counts up
-    * or counts down.
-    */
+   * An enumeration to define the type of timer, whether it counts up
+   * or counts down.
+   */
   enum Type : byte { COUNTDOWN, COUNTUP };
   /*!
-    * The default constructor for the Timer class.
-    */
+   * The default constructor for the Timer class.
+   */
   Timer(uint8_t DIN, uint8_t CLK, uint8_t CS, uint8_t alarm)
       : _display(DIN, CLK, CS) {
     _alarmPin = alarm;
   };
   /*!
-    * Initialize a countdown timer.
-    * \param fidelity The fidelity of the Timer.
-    * \param digits The digits to set the countdown timer to.
-    */
+   * Initialize a countdown timer.
+   * \param fidelity The fidelity of the Timer.
+   * \param digits The digits to set the countdown timer to.
+   */
   void countdown(Fidelity fidelity, uint16_t digits);
   /*!
-    * Initialize a countup timer.
-    * \param fidelity The fidelity of the Timer.
-    */
+   * Initialize a countup timer.
+   * \param fidelity The fidelity of the Timer.
+   */
   void countup(Fidelity fidelity);
   /*!
-    * Checks and updates the displayed time. It should be called in a loop.
-    */
+   * Checks and updates the displayed time. It should be called in a loop.
+   */
   void update();
   /*!
-    * Pauses the timer and saves the elapsed time at pause.
-    */
+   * Pauses the timer and saves the elapsed time at pause.
+   */
   void pause();
   /*!
-    * Restarts a paused timer.
-    */
+   * Restarts a paused timer.
+   */
   void restart();
 
 private:
