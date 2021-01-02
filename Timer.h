@@ -1,5 +1,5 @@
 /*
- * Timer.cpp
+ * Timer.h
  * created: Dec 2020
  */
 
