@@ -3,20 +3,18 @@
  * created: Dec 2020
  */
 
+#include "Timer.h"
 #include "Arduino.h"
 #include "PT6961.h"
-#include "Timer.h"
 
-void Timer::countdown(Fidelity fidelity, uint16_t digits)
-{
+void Timer::countdown(Fidelity fidelity, uint16_t digits) {
   _fidelity = fidelity;
   _type = COUNTDOWN;
   setTime(digits);
   init();
 }
 
-void Timer::countup(Fidelity fidelity)
-{
+void Timer::countup(Fidelity fidelity) {
   _fidelity = fidelity;
   _type = COUNTUP;
   _digitOne = 0;
@@ -26,8 +24,7 @@ void Timer::countup(Fidelity fidelity)
   init();
 }
 
-void Timer::update()
-{
+void Timer::update() {
   if (millis() >= _nextTime && !_isPaused) {
     if (_type == COUNTDOWN) {
       decrement();
@@ -43,16 +40,14 @@ void Timer::update()
   }
 }
 
-void Timer::pause()
-{
+void Timer::pause() {
   if (!_isPaused) {
     _isPaused = true;
     _pauseTime = _nextTime - millis();
   }
 }
 
-void Timer::restart()
-{
+void Timer::restart() {
   if (_isPaused) {
     _isPaused = false;
     _nextTime = millis() + _pauseTime;
@@ -62,8 +57,7 @@ void Timer::restart()
 /*
  * A common initialization method.
  */
-void Timer::init()
-{
+void Timer::init() {
 #if (TIMER_DEBUG == 1)
   Serial.begin(9600);
   delay(1000);
@@ -83,12 +77,11 @@ void Timer::init()
 /*
  * Sets the time to be displayed by the timer for a countdown.
  */
-void Timer::setTime(uint16_t digits)
-{
+void Timer::setTime(uint16_t digits) {
   if (digits > 9999 || digits <= 0) {
-  #if (TIMER_DEBUG == 1)
-    Serial.println("Given time outside of range.");
-  #endif
+#if (TIMER_DEBUG == 1)
+  Serial.println("Given time outside of range.");
+#endif
   } else {
     _digitFour = digits % 10;
     digits = digits / 10;
@@ -97,22 +90,21 @@ void Timer::setTime(uint16_t digits)
     _digitTwo = digits % 10;
     digits = digits / 10;
     _digitOne = digits % 10;
-  #if (TIMER_DEBUG == 1)
-    Serial.print("Time Set: ");
-    Serial.print(_digitOne);
-    Serial.print(_digitTwo);
-    Serial.print(":");
-    Serial.print(_digitThree);
-    Serial.println(_digitFour);
-  #endif
+#if (TIMER_DEBUG == 1)
+  Serial.print("Time Set: ");
+  Serial.print(_digitOne);
+  Serial.print(_digitTwo);
+  Serial.print(":");
+  Serial.print(_digitThree);
+  Serial.println(_digitFour);
+#endif
   }
 }
 
 /*
  * Decrements the third and fourth digits.
  */
-void Timer::decrement()
-{
+void Timer::decrement() {
   if (_digitFour == 0) {
     if (_digitThree == 0) {
       decrementLarge();
@@ -128,8 +120,7 @@ void Timer::decrement()
 /*
  * Decrements the first and second digits.
  */
-void Timer::decrementLarge()
-{
+void Timer::decrementLarge() {
   if (_digitTwo == 0) {
     if (_digitOne == 0) {
       alarm();
@@ -149,8 +140,7 @@ void Timer::decrementLarge()
 /*
  * Increments the third and fourth digits.
  */
-void Timer::increment()
-{
+void Timer::increment() {
   if (_digitFour == 9) {
     if (_digitThree == 5) {
       incrementLarge();
@@ -166,8 +156,7 @@ void Timer::increment()
 /*
  * Increments the first and second digits.
  */
-void Timer::incrementLarge()
-{
+void Timer::incrementLarge() {
   if (_digitTwo == 9) {
     if (_digitOne == 9) {
       _digitOne = 0;
@@ -192,8 +181,7 @@ void Timer::incrementLarge()
  * An alarm that is called when a countdown reaches 00:00 or a countup timer
  * reaches 99:99.
  */
-void Timer::alarm()
-{
+void Timer::alarm() {
   if (!_done) {
     digitalWrite(_alarmPin, HIGH);
     delay(ALARM_LENGTH);
