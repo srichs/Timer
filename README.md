@@ -1,4 +1,4 @@
-# Timer
+# Timer [![Build Status](https://github.com/srichs/Timer/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/srichs/Timer/actions) [![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](http://srichs.github.io/Timer/html/index.html)
 
 A Library for Arduino that uses a 4-digit, 7 segment display, driven by a PT6961 chip, that can be used as a Timer or Stopwatch. It makes use of the [PT6961 Library](https://github.com/Renaud11232/PT6961) written by Garrett Blanton.
 
